@@ -4,7 +4,7 @@ let obj_serializado
 let obj_deserializado
 
 function anadir(){
-
+    
     var nombreObj=$("#nombre").val();
     var apellidosObj=$("#apellidos").val();
     var edadObj=$("#edad").val();
@@ -16,16 +16,13 @@ function anadir(){
         edad:edadObj,
         ciudad:ciudadObj
     }
-
     obj_serializado = serializar(obJson);
 
     obj_deserializado = deserializar(obj_serializado);
 
-    nuevaFila(obJson);
+    nuevaFila(obj_deserializado);
 
 }
-
-
 
 function serializar(objeto){
     return JSON.stringify(objeto);
@@ -43,4 +40,3 @@ function nuevaFila(persona) {
         "<td>" + persona.ciudad + "</td>" +
         "</tr>")
 };
-
