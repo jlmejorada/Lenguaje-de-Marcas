@@ -10,12 +10,18 @@ function anadir(){
     var apellidosObj=$("#apellidos").val();
     var edadObj=$("#edad").val();
     var ciudadObj=$("#ciudad").val();
+    var hobbieObj= $('input[name="hobbies"]')
+                .filter(':checked')
+                .map(function () {
+                 return $(this).attr("id");
+                 }).get()
 
     let obJson = {
         nombre:nombreObj,
         apellidos:apellidosObj,
         edad:edadObj,
-        ciudad:ciudadObj
+        ciudad:ciudadObj,
+        hobbie:hobbieObj        
     }
     if (sePuede(obJson)){
     obj_serializado = serializar(obJson);
@@ -40,15 +46,21 @@ function deserializar(objeto){
 }
 
 function generarTabla() {
+    let listaHobbies = "";
+    
+
     $("#Tabla").html("")
     for (let i=0; i<clientes.length; i++){
-        $("#Tabla").append("<tr onclick=\"borrar("+i+")\">" +  //aquí está el append
+        for (let j=0;j<clientes[i].hobbie.length;j++){
+            listaHobbies += clientes[i].hobbie[j] + " ";
+        }
+        $("#Tabla").append("<tr id='lui' onclick=\"borrar("+i+")\">" +  //aquí está el append
             "<td>" + i + "</td>" +
             "<td>" + clientes[i].nombre + "</td>" +
             "<td>" + clientes[i].apellidos + "</td>" +
             "<td>" + clientes[i].edad + "</td>" +
             "<td>" + clientes[i].ciudad + "</td>" +
-            "</tr>")
+            "<td>" + listaHobbies + "</td></tr>");
     }
     calcula()
 };
