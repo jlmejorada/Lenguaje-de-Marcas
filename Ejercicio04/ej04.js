@@ -4,6 +4,8 @@ let obj_serializado
 
 let obj_deserializado
 
+let cosa
+
 
 $('input[name=hobbies]').on('change', function () { 
     if($('input:checkbox').filter(':checked').length >2){
@@ -35,6 +37,8 @@ function anadir(){
     }
     if (sePuede(obJson)){
     obj_serializado = serializar(obJson);
+
+    envio(obj_serializado)
 
     obj_deserializado = deserializar(obj_serializado);
 
@@ -125,3 +129,19 @@ function calcula(){
         )
 }
 
+function envio(objeto_js){
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://lm.iesnervion.es/eco.php");
+ xhr.responseType = "json";
+
+
+    xhr.onload = function() {
+        if (xhr.readyState == 4 && xhr.status == 201) { // 200 || 201
+            cosa=xhr.response
+            console.log(1);
+        } else {
+            console.log("Error: ${xhr.status}");
+        }
+    };
+    xhr.send(objeto_js);
+}
