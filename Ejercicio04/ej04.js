@@ -33,16 +33,15 @@ function anadir(){
         apellidos:apellidosObj,
         edad:edadObj,
         ciudad:ciudadObj,
-        hobbie:hobbieObj        
+        hobbies:hobbieObj        
     }
     if (sePuede(obJson)){
-    obj_serializado = serializar(obJson);
+
+    clientes.push(obJson);
+
+    obj_serializado = serializar(clientes);
 
     envio(obj_serializado)
-
-    obj_deserializado = deserializar(obj_serializado);
-
-    clientes.push(obj_deserializado);
 
     generarTabla();
 
@@ -55,10 +54,6 @@ function serializar(objeto){
     return JSON.stringify(objeto);
 }
 
-function deserializar(objeto){
-    return JSON.parse(objeto);
-}
-
 function generarTabla() {
     let listaHobbies = "";
     
@@ -66,8 +61,8 @@ function generarTabla() {
     $("#Tabla").html("")
     for (let i=0; i<clientes.length; i++){
         listaHobbies = "";
-        for (let j=0;j<clientes[i].hobbie.length;j++){
-            listaHobbies += clientes[i].hobbie[j] + " ";
+        for (let j=0;j<clientes[i].hobbies.length;j++){
+            listaHobbies += clientes[i].hobbies[j] + " ";
         }
         $("#Tabla").append("<tr id='lui' onclick=\"borrar("+i+")\">" +  //aquí está el append
             "<td>" + i + "</td>" +
@@ -77,7 +72,6 @@ function generarTabla() {
             "<td>" + clientes[i].ciudad + "</td>" +
             "<td>" + listaHobbies + "</td></tr>");
     }
-    calcula()
 };
 
 function borrar(row){
@@ -96,51 +90,29 @@ function sePuede(objeto){
     return completo
 }
 
-function calcula(){
-    let num=0;
-    let suma=0;
-    let media=0
-    let max=0;
-    let min=999;
-
-    if (clientes.length>0){
-        for (let i=0;i<clientes.length;i++){
-            num = parseInt(clientes[i].edad);
+function calcula(cosa){
     
-            suma += num;
-    
-            if (max < num){
-                max = num;
-            }
-    
-            if (min > num){
-                min = num;
-            }
-    
-        }
-        media = suma/(clientes.length);
-    }
-
     $("#calculos").html( 
-        "<p> Suma: " + suma + "</p>" +
-        "<p> Media: " + media + "</p>" +
-        "<p> Edad máxima: " + max + "</p>" +
-        "<p> Edad mínima: " + min + "</p>" 
+        "<p> Suma: " + cosa.calculos.suma + "</p>" +
+        "<p> Media: " + cosa.calculos.media + "</p>" +
+        "<p> Edad máxima: " + cosa.calculos.max + "</p>" +
+        "<p> Edad mínima: " + cosa.calculos.min + "</p>" 
         )
 }
 
 function envio(objeto_js){
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "https://lm.iesnervion.es/eco.php");
- xhr.responseType = "json";
+    xhr.responseType = "json";
 
 
     xhr.onload = function() {
         if (xhr.readyState == 4 && xhr.status == 201) { // 200 || 201
             cosa=xhr.response
-            console.log(1);
+            calcula(cosa);
+            console.log(cosa);
         } else {
-            console.log("Error: ${xhr.status}");
+            console.log("Error: " + xhr.status);
         }
     };
     xhr.send(objeto_js);
