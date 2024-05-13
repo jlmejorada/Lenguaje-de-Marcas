@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Ej04-RETO:</title>
+    </head>
+    <style>
+        table, th, td {
+        border: 1px solid black;
+    }
+    </style>
+    <body>
+        <input type="number" id="id" placeholder="Identificador">
+        <input type="text" id="desc" placeholder="Descripción">
+        <input type="number" id="proov" placeholder="ID Proovedor">
+        <input type="price" id="prec" placeholder="Precio">
+
+        <button onclick="anadir()">Añadir</button>
+
+        <br><br>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Identificador</th>
+                    <th>Descripción</th>
+                    <th>ID Proovedor</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody id="Tabla">
+            </tbody>
+        </table>
+
+        <br><br>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="ej04.js"></script>
+    </body>
+</html>
