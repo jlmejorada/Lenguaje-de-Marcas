@@ -9,14 +9,21 @@
         table, th, td {
         border: 1px solid black;
     }
+        #error {
+            color: red;
+            font-weight: bold;
+        }
     </style>
     <body>
-        <input type="number" id="id" placeholder="Identificador">
         <input type="text" id="desc" placeholder="Descripción">
         <input type="number" id="proov" placeholder="ID Proovedor">
         <input type="price" id="prec" placeholder="Precio">
 
         <button onclick="anadir()">Añadir</button>
+
+        <br><br>
+
+        <div id="error"></div>
 
         <br><br>
 
@@ -32,8 +39,6 @@
             <tbody id="Tabla">
             </tbody>
         </table>
-
-        <br><br>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="ej04.js"></script>

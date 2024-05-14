@@ -1,43 +1,25 @@
-let mariaDB = []
 let obj_serializado
+let cosa
+let lista=[];
 
 function anadir(){
     
-    var ide=$("#id").val();
     var desc=$("#desc").val();
     var proov=$("#proov").val();
     var prec=$("#prec").val();
 
     let obJson = {
-        id:ide,
         descripcion:desc,
-        idProov:proov,
+        idProveedor:proov,
         precio:prec     
     }
-    if (sePuede(obJson)){
 
-    mariaDB.push(obJson);
-
-    obj_serializado = serializar(clientes);
+    obj_serializado = serializar(obJson);
 
     envio(obj_serializado)
 
-    generarTabla();
-
-    } else {
-        alert("Alguno de los campos están vacios")
-    }
 }
 
-function sePuede(objeto){
-    let completo = false
-
-    if (objeto.nombre!=null && objeto.nombre!="" && objeto.apellidos!=null && objeto.apellidos!="" && objeto.edad!=null && objeto.edad!="" && objeto.ciudad!=null && objeto.ciudad!="" ){
-        completo = true
-    }
-
-    return completo
-}
 
 function serializar(objeto){
     return JSON.stringify(objeto);
@@ -50,25 +32,33 @@ function envio(objeto_js){
 
 
     xhr.onload = function() {
-        if (xhr.readyState == 4 && xhr.status == 201) { // 200 || 201
-            cosa=xhr.response      
-            generarTabla(cosa);
-            console.log(cosa);
+        if (xhr.readyState == 4 && xhr.status == 200) { // 200 || 201
+            cosa=xhr.response     
+            if (cosa.deco==null){
+                lista=cosa.lista; 
+                generarTabla(lista);
+                console.log(lista);
+            } else {
+               
+             $("#error").html("<h2>"  + cosa.error +  "</h2>");
+    
+            }
+            
         } else {
             console.log("Error: " + xhr.status);
         }
     };
     xhr.send(objeto_js);
 }
-function generarTabla() {
+
+function generarTabla(lista) {
 
     $("#Tabla").html("")
-    for (let i=0; i<mariaDB.length; i++){
-        $("#Tabla").append("<tr id='lui' onclick=\"borrar("+i+")\">" +  //aquí está el append
-            "<td>" + clientes[i].nombre + "</td>" +
-            "<td>" + clientes[i].apellidos + "</td>" +
-            "<td>" + clientes[i].edad + "</td>" +
-            "<td>" + clientes[i].ciudad + "</td>" +
-            "<td>" + listaHobbies + "</td></tr>");
+    for (let i=0; i<lista.length; i++){
+        $("#Tabla").append("<tr>" +
+            "<td>" + lista[i].id + "</td>" +
+            "<td>" + lista[i].descripcion + "</td>" +
+            "<td>" + lista[i].idProveedor + "</td>" +
+            "<td>" + lista[i].precio + "</td>");
     }
 };
