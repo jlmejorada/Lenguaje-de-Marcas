@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>EXAMEN:</title>
+    </head>
+    <style>
+        table, th, td {
+        border: 1px solid black;
+    }
+        #error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+    <body>
+        <h1>DADOS DE LA SUERTE</h1>
+        <h2>José Luis Mejorada Marín</h2>
+        <input id="ident" type="hidden" value="" />
+        <input type="text" id="nam" placeholder="Nombre">
+        <input type="text" id="ape" placeholder="Apellidos">
+        <input type="number" min="2" max="12" id="num" placeholder="Apuesta">
+        <input type="password" id="con" placeholder="Contraseña">
+
+        <button onclick="jugar()">Jugar</button>
+
+        <div id="dado1"></div>
+        <div id="dado2"></div>
+
+        <br><br>
+        <center>
+        <div id="res"></div>
+
+        <div id="error"></div>
+
+        <br><br>
+        <div id="borde"></div>
+        </center>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="examen.js"></script>
+    </body>
+</html>
